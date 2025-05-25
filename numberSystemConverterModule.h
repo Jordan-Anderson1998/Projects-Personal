@@ -29,7 +29,21 @@ inline void testIfCorrectFormat(int testNumber, char type){
         }
     }
     }
-    // else throw std::invalid_argument("arg: type must be ['o (octal)', 'q(quaternary)']");
+
+    // if binary number
+    if(type == 'b'){
+
+        std::string stringNum = std::to_string(testNumber);
+
+        for(int i=0; i<=stringNum.size(); i++){
+
+            if(stringNum[i] > '1'){
+
+                throw std::runtime_error("Cannot compute non-binary number.");
+            }
+
+        }
+    }
 }
 
 inline void testIfCorrectDataType(int number){
@@ -109,3 +123,36 @@ inline int convertOctalToDecimal(int number){
         return total;
 
         }
+
+inline long signed int convertBinaryToDecimal(long signed int number){
+
+    // testIfCorrectFormat(number, 'b');
+
+    bool isNegativeNumber = false;
+
+    if(number < 0){
+
+        isNegativeNumber = true;
+        number = abs(number);
+    }
+
+    std::string stringNum = std::to_string(number);
+
+    int total = 0;
+
+    int j = 0;
+
+    for(int i=pow(2, stringNum.size() - 1); i>=1; i/=2){
+
+        total += i * (stringNum[j] - '0');
+        j += 1;
+
+    }
+
+    if (isNegativeNumber){
+
+        return ~total + 1;
+    }
+
+    return total;
+}
