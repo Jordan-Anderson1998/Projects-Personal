@@ -156,3 +156,24 @@ inline long signed int convertBinaryToDecimal(long signed int number){
 
     return total;
 }
+
+inline std::string convertDecimalToBinary(long signed int number){
+
+    int quotient = number;
+    std::string binNum = "";
+
+    while (quotient > 0) {
+
+        int remainder = quotient % 2;
+        quotient /= 2;
+
+        binNum += std::to_string(remainder);
+
+    }
+
+    // reverse the order to be read as binary
+    std::reverse(binNum.begin(), binNum.end());
+
+    return "0b" + binNum;
+
+}
