@@ -177,3 +177,91 @@ inline std::string convertDecimalToBinary(long signed int number){
     return "0b" + binNum;
 
 }
+
+void testIfHexidecimal(std::string number){
+    
+    bool match = false;
+    int numOfMatches = 0;
+    
+     std::array<char, 16> hexDecimalCharacters = {'0', '1', '2', '3', '4', '5', '6',
+                                                  '7', '8', '9', 'A', 'B', 'C', 'D',
+                                                  'E', 'F'
+                                                 };
+   
+   for(auto i: hexDecimalCharacters){
+       
+       for(auto j: number){
+           
+           if(i == j) numOfMatches +=1;
+       }
+   }
+   
+    if(numOfMatches == number.size()) match = true;
+        
+    if (not match){
+        
+        throw std::invalid_argument("Cannot compute non-HexiDecimal number");
+    }
+	
+	return;
+}
+
+long int covertHexadecimalToDecimal(std::string sequence){
+    
+   testIfHexidecimal(sequence);
+    
+    std::map<char, int>charMap;
+    
+    charMap['A'] = 10;
+    charMap['B'] = 11;
+    charMap['C'] = 12;
+    charMap['D'] = 13;
+    charMap['E'] = 14;
+    charMap['F'] = 15;
+    
+    int j, total;
+    
+    j = 0;
+    total = 0;
+    
+    for(int i=pow(16, sequence.size() - 1); i>=1; i/=16){
+    
+        if(sequence[j] == 'A'){
+        
+            total += i * charMap['A'];
+            j += 1;
+            
+        }else if (sequence[j] == 'B'){
+            
+            total += i * charMap['B'];
+            j += 1;
+            
+        }else if (sequence[j] == 'C'){
+            
+            total += i * charMap['C'];
+            j += 1;
+            
+        }else if (sequence[j] == 'D'){
+            
+            total += i * charMap['D'];
+            j += 1;
+            
+        }else if (sequence[j] == 'E'){
+            
+            total += i * charMap['E'];
+            j += 1;
+            
+        }else if (sequence[j] == 'F'){
+            
+            total += i * charMap['F'];
+            j += 1;
+            
+        }else{
+            
+            total += i * (sequence[j] - '0');
+            j += 1;
+        }
+}
+
+    return total;
+}
