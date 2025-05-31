@@ -1,6 +1,9 @@
 1. Test Function testIfCorrectDataType does not appear to have any effect, boolean operators true and false have the values 0 and 1 respectively, as such they can be passed as arguments to the functions.
 Single character's such as 'a' have ASCII values, and so they can also be passed as arguments (unless they are invalid in their number system, for example 8, 9 are invalid Octal numbers.)
-2. Function convertBinaryToDecimal - If parameter starts with 0, get unexpected results.
+	- the testIfCorrectDataType function should be scraped, and replaced with a better method for checking data types, if at all.
+2. Function convertBinaryToDecimal - If parameter starts with 0, get unexpected results. 
+	- Perhaps refactor using a string as input instead of integer? 
 3. Using long int allows a much larger int argument to be passed into the function, however due to the nature of binary representation, the decimal calculation only equals around 524,000.
 4. Functions to convert Octal and Quaternary to decimal, should have type long signed int in order to represent larger numbers in decimal.
-5.
+5.Function testIfCorrectFormat - checking if binary number is getting unexpected results. 
+	- Should consider refactoring entire function to better check that these parameter values meet the criteria for the types of numeric systems they represent. 
