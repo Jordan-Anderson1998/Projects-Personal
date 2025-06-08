@@ -4,6 +4,10 @@ Single character's such as 'a' have ASCII values, and so they can also be passed
 2. Function convertBinaryToDecimal - If parameter starts with 0, get unexpected results. 
 	- Perhaps refactor using a string as input instead of integer? 
 3. Using long int allows a much larger int argument to be passed into the function, however due to the nature of binary representation, the decimal calculation only equals around 524,000.
+    -Fixed, no longer using int argument for binary number argument.
+    -Fixed, now binary numbers are passed as string arguments instead of int type. This allows for a much larger int representation because the length of string is not limited like int.
 4. Functions to convert Octal and Quaternary to decimal, should have type long signed int in order to represent larger numbers in decimal.
+    -Functionality Implemented
 5.Function testIfCorrectFormat - checking if binary number is getting unexpected results. 
-	- Should consider refactoring entire function to better check that these parameter values meet the criteria for the types of numeric systems they represent. 
+	- Should consider refactoring entire function to better check that these parameter values meet the criteria for the types of numeric systems they represent.
+	    - Fixed, new function written to test if valid binary argument was passed.
