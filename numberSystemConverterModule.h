@@ -10,7 +10,7 @@ inline void testIfCorrectFormat(int testNumber, char type){
             if(stringNum[i] >= '8'){
 
                 // printf("%d is an incorrect Octal number", number);
-                throw std::runtime_error("Cannot compute non-octal number.");
+                throw std::runtime_error("Cannot compute non-octal number. Valid Octal numbers have digits [0-7]");
         }
     }
     }
@@ -25,36 +25,27 @@ inline void testIfCorrectFormat(int testNumber, char type){
             if(stringNum[i] >= '4'){
 
                 // printf("%d is an incorrect Octal number", number);
-                throw std::runtime_error("Cannot compute non-quaternary number.");
+                throw std::runtime_error("Cannot compute non-quaternary number. Valid  quaternary numbers have digits [0-3]");
         }
     }
     }
 
-    // if binary number
-    if(type == 'b'){
-
-        std::string stringNum = std::to_string(testNumber);
-
-        for(int i=0; i<=stringNum.size(); i++){
-
-            if(stringNum[i] > '1'){
-
-                throw std::runtime_error("Cannot compute non-binary number.");
-            }
-
-        }
-    }
 }
 
-inline void testIfCorrectDataType(int number){
-
-    if (typeid(number) != typeid(int)){
-
-        throw std::invalid_argument("Arg: number must be of type int");
-    }
-}
 
 inline int convertQuaternaryToDecimal(int number){
+	
+	/*
+	
+	Convert quaternary number to decimal equivalent. Valid quaternary numbers have digits [0-3].
+	
+	Args:
+		number: quaternary number. Will raise error if digit is not a valid quaternary number.
+	
+	Return:
+		Decimal number.
+	
+	*/
 
     testIfCorrectFormat(number, 'q');
     testIfCorrectDataType(number);
@@ -69,8 +60,7 @@ inline int convertQuaternaryToDecimal(int number){
 
     std::string stringNum = std::to_string(number);
 
-    int total = 0;
-
+    long signed int total = 0;
     int j = stringNum.size();
 
     for(int i=pow(4, stringNum.size() - 1); i>=1; i/=4){
@@ -89,7 +79,19 @@ inline int convertQuaternaryToDecimal(int number){
 }
 
 
-inline int convertOctalToDecimal(int number){
+inline long signed int convertOctalToDecimal(long signed int number){
+	
+	/*
+	
+	Convert Octal number to decimal equivalent. Valid octal numbers have digits [0-7].
+	
+	Args:
+		number: Octal number. Will raise error if digit is not a valid octal number.
+	
+	Return:
+		Decimal number.
+	
+	*/
 
     testIfCorrectFormat(number, 'o');
     testIfCorrectDataType(number);
@@ -104,8 +106,7 @@ inline int convertOctalToDecimal(int number){
 
     std::string stringNum = std::to_string(number);
 
-    int total = 0;
-
+    long signed int total = 0;
     int j = stringNum.size();
 
     for(int i=pow(8, stringNum.size() - 1); i>=1; i/=8){
@@ -124,40 +125,80 @@ inline int convertOctalToDecimal(int number){
 
         }
 
-inline long signed int convertBinaryToDecimal(long signed int number){
+inline void testIfBinary(std::string str){
 
-    // testIfCorrectFormat(number, 'b');
+    /*
 
-    bool isNegativeNumber = false;
+    Test if string meets the criteria for a valid binary digit.
+    Valid binary digits are [0, 1]
 
-    if(number < 0){
+    Args:
+        str: string to be evaluated for validity.
 
-        isNegativeNumber = true;
-        number = abs(number);
+    */
+
+    bool match = false;
+    int numOfMatches = 0;
+
+    std::array<char, 16> binaryChar = {'0', '1'};
+
+    for(auto i: binaryChar){
+
+        for(auto j: str){
+
+            if(i == j) numOfMatches +=1;
+        }
     }
 
-    std::string stringNum = std::to_string(number);
+    if(numOfMatches == str.size()) match = true;
+
+    if (not match){
+
+        throw std::invalid_argument("Non-binary number passed");
+    }
+}
+
+inline long signed int convertBinaryToDecimal(std::string bin){
+
+    /*
+
+    Converts binary number to decimal equivalent.
+
+    Args:
+        number: string number representing binary digit to be converted to decimal.
+
+    Return:
+        Decimal number.
+    */
+
+    testIfBinary(bin);
 
     int total = 0;
-
     int j = 0;
 
-    for(int i=pow(2, stringNum.size() - 1); i>=1; i/=2){
+    for(int i=pow(2, bin.size() - 1); i>=1; i/=2){
 
-        total += i * (stringNum[j] - '0');
+        total += i * (bin[j] - '0');
         j += 1;
 
-    }
-
-    if (isNegativeNumber){
-
-        return ~total + 1;
     }
 
     return total;
 }
 
+
 inline std::string convertDecimalToBinary(long signed int number){
+	
+	/*
+	
+	Converts an int to the decimal equivalent.
+	
+	Args:
+		number: long int number to be evaluated.
+		
+	Return: string of a binary number, denoted with '0b' at the beginning to ensure the output is read correctly as a binary number. 
+	
+	*/
 
     int quotient = number;
     std::string binNum = "";
@@ -178,7 +219,16 @@ inline std::string convertDecimalToBinary(long signed int number){
 
 }
 
-void testIfHexidecimal(std::string number){
+inline void testIfHexadecimal(std::string number){
+	
+	/*
+	
+	Test if string meets the criteria for a valid hexadecimal digit.
+	
+	Args:
+		number: string to be evaluated for validity. 
+	
+	*/
     
     bool match = false;
     int numOfMatches = 0;
@@ -200,15 +250,25 @@ void testIfHexidecimal(std::string number){
         
     if (not match){
         
-        throw std::invalid_argument("Cannot compute non-HexiDecimal number");
+        throw std::invalid_argument("Non-hexadecimal number passed");
     }
-	
-	return;
 }
 
-long int covertHexadecimalToDecimal(std::string sequence){
+inline long int covertHexadecimalToDecimal(std::string sequence){
+	
+	/*
+	
+	Converts a hexadecimal string to the decimal equivalent.
+	
+	Args:
+		sequence: hexadecimal string to be converted to decimal. If not a valid hexadecimal digit, will raise argument error.
+	
+	Return:
+		long int.
+	
+	*/
     
-   testIfHexidecimal(sequence);
+   testIfHexadecimal(sequence);
     
     std::map<char, int>charMap;
     
@@ -264,4 +324,43 @@ long int covertHexadecimalToDecimal(std::string sequence){
 }
 
     return total;
+}
+
+inline std::string convertDecimalToHexaDecimal(long signed int number){
+    
+    /*
+    
+    Converts standard decimal number to a hexadecimal equivalent. 
+    
+    Args: 
+        number: a decimal number to be converted to hexadecimal.
+    
+    Return:
+        string formatted with an 'h' at the end to make sure the output is 
+        differentiated from another number system. 
+    
+    */
+    
+    int quotient = number;
+    std::string hexNum = "";
+    
+    while (quotient > 0) {
+
+        int remainder = quotient % 16;
+        quotient /= 16;
+        
+        if(remainder == 10) hexNum += 'A';
+        else if (remainder == 11) hexNum += 'B';
+        else if (remainder == 12) hexNum += 'C';
+        else if (remainder == 13) hexNum += 'D';
+        else if (remainder == 14) hexNum += 'E';
+        else if (remainder == 15) hexNum += 'F';
+        else hexNum += std::to_string(remainder);
+
+    }
+
+    // reverse the order to be read as hexadecimal
+    std::reverse(hexNum.begin(), hexNum.end());
+    
+    return hexNum + 'h';
 }
