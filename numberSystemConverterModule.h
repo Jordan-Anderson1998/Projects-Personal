@@ -48,7 +48,6 @@ inline int convertQuaternaryToDecimal(int number){
 	*/
 
     testIfCorrectFormat(number, 'q');
-    testIfCorrectDataType(number);
 
     bool isNegativeNumber = false;
 
@@ -61,7 +60,7 @@ inline int convertQuaternaryToDecimal(int number){
     std::string stringNum = std::to_string(number);
 
     long signed int total = 0;
-    int j = stringNum.size();
+    int j {static_cast<int>(stringNum.size())};
 
     for(int i=pow(4, stringNum.size() - 1); i>=1; i/=4){
 
@@ -94,7 +93,6 @@ inline long signed int convertOctalToDecimal(long signed int number){
 	*/
 
     testIfCorrectFormat(number, 'o');
-    testIfCorrectDataType(number);
 
     bool isNegativeNumber = false;
 
@@ -107,7 +105,7 @@ inline long signed int convertOctalToDecimal(long signed int number){
     std::string stringNum = std::to_string(number);
 
     long signed int total = 0;
-    int j = stringNum.size();
+    int j {static_cast<int>(stringNum.size())};
 
     for(int i=pow(8, stringNum.size() - 1); i>=1; i/=8){
 
@@ -140,7 +138,7 @@ inline void testIfBinary(std::string str){
     bool match = false;
     int numOfMatches = 0;
 
-    std::array<char, 16> binaryChar = {'0', '1'};
+    constexpr std::array<char, 16> binaryChar {{'0', '1'}};
 
     for(auto i: binaryChar){
 
@@ -201,11 +199,11 @@ inline std::string convertDecimalToBinary(long signed int number){
 	*/
 
     int quotient = number;
-    std::string binNum = "";
+    std::string binNum;
 
     while (quotient > 0) {
 
-        int remainder = quotient % 2;
+        int remainder {quotient % 2};
         quotient /= 2;
 
         binNum += std::to_string(remainder);
@@ -230,13 +228,15 @@ inline void testIfHexadecimal(std::string number){
 	
 	*/
     
-    bool match = false;
-    int numOfMatches = 0;
+    bool match {false};
+    int numOfMatches { 0 };
     
-     std::array<char, 16> hexDecimalCharacters = {'0', '1', '2', '3', '4', '5', '6',
-                                                  '7', '8', '9', 'A', 'B', 'C', 'D',
-                                                  'E', 'F'
-                                                 };
+    constexpr std::array<char, 16> hexDecimalCharacters { {
+                                                              '0', '1', '2', '3', '4', '5', '6',
+                                                              '7', '8', '9', 'A', 'B', 'C', 'D',
+                                                              'E', 'F'
+                                                            }
+                                                        };
    
    for(auto i: hexDecimalCharacters){
        
@@ -342,7 +342,7 @@ inline std::string convertDecimalToHexaDecimal(long signed int number){
     */
     
     int quotient = number;
-    std::string hexNum = "";
+    std::string hexNum;
     
     while (quotient > 0) {
 
