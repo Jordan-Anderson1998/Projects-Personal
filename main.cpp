@@ -1,6 +1,8 @@
-#include <cstdio>
 #include <iostream>
 #include <string>
+#include <map>
+#include <array>
+#include <algorithm>
 #include <cmath>
 #include "numberSystemConverterModule.h"
 
@@ -72,27 +74,51 @@ for(int i=0; i<=stringNum2.size(); i++){
     }
 }
 
+Converting Binary to decimal
+
+C++ long int types lets us enter an int argument up to 19 digits
+
+this means that 1111111111111111111 is the maximum binary digit we can enter under this
+algorithm. This is only equivalent to 542,287 in decimal. So perhaps we should divide the argument given to the
+function into groups of 4, and add these results together instead of interpreting it as one very long number.
+
 */
 
 
 int main()
 {
-    // should be 878
-    std::cout << convertQuaternaryToDecimal(31232) << "\n";
 
-    //should be 2005
-    std::cout << convertOctalToDecimal(3725) << "\n";
+    const int decimalToHexNum = 255;
+    const int decimalToBinaryNum = 123456;
+    const int octalNumber = 34567;
+    const std::string binaryNum = "10001010101011";
+    const std::string hexadecimalSequence = "DE56";
+    const std::string incorrectHexadecimal = "ABNO90LPZYZ";
 
-    // should be 0
-    std::cout << convertOctalToDecimal(0) << "\n";
-    std::cout << convertQuaternaryToDecimal(0) << "\n";
+    // should be 0b1 1110 0010 0100 0000
+    std::cout << convertDecimalToBinary(decimalToBinaryNum) << std::endl;
 
-    // should be -469 decimal
-    std::cout << convertOctalToDecimal(-725) << "\n";
+    // should be FFh
+    std::cout << convertDecimalToHexaDecimal(decimalToHexNum) << std::endl;
 
-    // should raise an error
-    // std::cout << convertOctalToDecimal(889889);
+    // should be 56,918 decimal
+    std::cout << covertHexadecimalToDecimal(hexadecimalSequence) <<std::endl;
+
+    // should be 14,711 decimal
+    std::cout << convertOctalToDecimal(octalNumber) << std::endl;
+
+    // should be 8,875 decimal
+    std::cout << convertBinaryToDecimal(binaryNum) << std::endl;
+
+    // should be 498,549 decimal
+    std::cout << convertBinaryToDecimal("1111001101101110101") << std::endl;
+
+    // should raise an exception, not a hexadecimal number
+    std::cout << covertHexadecimalToDecimal(incorrectHexadecimal) << std::endl;
+
+    // should raise an exception, not a valid binary digit
+    // std::cout << convertBinaryToDecimal("23456789") << std::endl;
 
     return 0;
-
 }
+
