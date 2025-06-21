@@ -69,6 +69,18 @@ int main(int argc, char *argv[]) {
 
     std::cout << std::endl;
     linearSearch(bigVec, -60);
-    
+
+    int step = 0;
+
+    for (int i=1000; i<=75000; i+=1000) {
+        printf("Binary Chop: \n");
+        binaryChop(bigVec, i);
+        // printf("\n");
+        printf("Linear Search: \n");
+        linearSearch(bigVec, i);
+        printf("\n");
+        printf("On step: %d \n", step);
+        step++;
+    }
     return 0;
 }
