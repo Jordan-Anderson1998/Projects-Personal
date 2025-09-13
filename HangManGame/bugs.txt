@@ -1,0 +1,36 @@
+1. Need to take into consideration if a letter user guesses appears more than once in the word. (for example,
+'calgary' has more than one 'a', so need to make sure all instances of the letter appear.
+2. Need to display the letters already guesses, so we don't duplicate.
+3. If the user does not input a valid letter, loop an error message until they input a valid character.
+4. The user should only be able to input ONE character at a time.
+5. The output for the word progress needs to be on a separate line each letter guess.
+
+Some various code snippets that don't quite function as expected:
+
+    # sorted_letters_player_guesses = sorted(correct_letters_player_guesses)
+    # word_guess_str = ''
+    # sorted_letters_selected_word = sorted(list(selected_word))
+    # num_of_guesses_allowed = len(selected_word) + 2
+
+        # Does not compare properly
+        # if sorted_letters_player_guesses == sorted_letters_selected_word:
+        #
+        #     print(f'{player_name} won! they found the word {selected_word}')
+        #     return 'Victory!'
+
+        # only works for first letter found
+        # for _ in selected_word:
+        #
+        #     if _ == player_selection:
+        #         index = selected_word.index(_)
+        #         list_player_guess[index] = player_selection
+
+        # appends every round of the while loop, not what we want
+        # for i in list_player_guess:
+        #     word_guess_str += i
+
+        # doesn't work correctly
+        # if word_guess_str == selected_word:
+        #
+        #     print(f'{player_name} has won!')
+        #     return 'Victory'
