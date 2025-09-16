@@ -1,0 +1,12 @@
+Game Rules:
+
+There are 25 briefcases which have an unknown random amount of $$$ inside the case.
+The dollar amount in the cases ranges from $0.01 to $1,000,000. The player chooses an initial case, which they hope to be the case that contains the big winner.
+The player selects 3 briefcases at a time, each case the player selects the $ amount in the case
+is no longer available for the player to get. It gets crossed out.
+
+At the end of each turn, the "dealer" will make an offer to the player, which they can 
+take the money offer, or risk choosing 3 more cases in hope that they uncover the $1,000,000 cases at the very end.
+If the player does not take any offer that the dealer makes, then the very last case they open will be the amount of money they win.
+
+If the player takes the dealer's offer the game is over and they get that amount.
