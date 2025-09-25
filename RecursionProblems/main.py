@@ -1,5 +1,5 @@
 """
-Intermediate Recursion Problems
+Recursion Problems
 
 1. Generate All Subsets (Power Set)
 - Problem: Given a set of distinct integers, return all possible subsets.
@@ -50,6 +50,9 @@ Intermediate Recursion Problems
 - Problem: Given a string of digits and a target value, insert +, -, or * operators to form expressions that evaluate to the target.
 - Concepts: Recursion with expression building
 - Bonus: Handle operator precedence correctly.
+
+11. Fibonacci Sequence
+    - Write a function to compute the n-term sequence of the fibonacci sequence.
 
 """
 
@@ -102,6 +105,56 @@ def string_permutations(string: str):
 
     pass
 
+def fibonacci(n_terms: int) -> list:
+
+    """
+    Fibonaci Sequence {0, 1, 1, 2, 3, 5, 8, 13, 21...}
+
+    n1: initialize at 0
+    n2: initialize at 0
+    n: initialize at 0
+
+    n += 1 : n = 1
+
+    n1 = n2
+    n2 = n
+    sequence = n2 + n1
+
+    :param n_terms: Compute n-terms in the fibonacci sequence
+    :return: List of sequences
+    """
+
+    n1 = 0
+    n2 = 0
+    n = 0
+    sequence = [0, 1]
+
+
+    while n_terms > 0:
+
+        print(n)
+
+        if n == 0:
+
+            n += 1
+            n2 += 1
+            n1 += 1
+            sequence.append(n)
+
+            print(n)
+            print(n)
+
+        n1 = n2
+        n2 = n
+        n = n2 + n1
+
+        sequence.append(n)
+
+        n_terms -= 1
+
+    return sequence
+
+
 
 if __name__ == '__main__':
 
@@ -109,3 +162,4 @@ if __name__ == '__main__':
 
     print(generate_subsets(nums=unique_nums, i=1))
 
+    print(fibonacci(n_terms=15))
