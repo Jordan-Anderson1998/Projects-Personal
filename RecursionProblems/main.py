@@ -1,6 +1,34 @@
 """
 Recursion Problems
 
+Easier problems:
+
+1. Sum Digits
+- Write a function that sums the digits in any given integer
+    - for example (123) return -> 6
+
+2. Count Zeros
+- Write a function that counts the number of 0's in a given integer
+    - for example (0100010) Return -> 4
+
+3. Palindrome Checker
+- Write a function to check if a given input as string is a palindrome
+    - palindrome: word that can be read the same way forwards as backwards
+    - example ('racecar') return -> True
+    - ('orange') return -> False
+
+4. Compute power
+- Write a function that takes (a,b) as input as returns a^b
+- Example (10, 3) return -> 1000
+
+5. Reverse string
+- Write a function that reverses a given string as input
+- Example ('hello') return -> 'olleh'
+
+----------------------------------------
+
+Intermediate recursion problems
+
 1. Generate All Subsets (Power Set)
 - Problem: Given a set of distinct integers, return all possible subsets.
 - Concepts: Backtracking, recursion tree
@@ -56,6 +84,116 @@ Recursion Problems
 
 """
 
+def sum_digits(n:int, _iter: int=0, running_total=0, print_nums: bool=False) -> int:
+    """
+    Given a number n, returns the sum of all digits in the number.
+    Calculate the sum digits of n recursively.
+
+    For example, given n = 123, return 6
+
+    :param n: number
+    :param _iter: where to start iterating on number
+    :param print_nums: if True, print each number that is being calculated
+    :param running_total: the running total of each digit in n
+    :return: the sum of all digits in the number n
+
+    """
+
+    string_num = str(n)
+
+    if print_nums:
+        print(running_total)
+
+    if _iter < len(string_num):
+
+        running_total = sum_digits(n, _iter + 1, running_total + int(string_num[_iter]))
+
+    return running_total
+
+
+# def reverse_string(string):
+#     """
+#     Given a string, returns the reversed string using recursion.
+#     For example, given string = 'hello', return 'olleh'
+#     :param string:
+#     :return:
+#     """
+#
+#     string_index = len(string) - 1
+#
+#     if string_index > 0:
+#
+#         reverse_string(string[string_index - 1])
+#         # print(string[string_index])
+#
+#     print(string[string_index])
+
+
+def count_zeros(num: int, _iter=0) -> int:
+    """
+    Count the number of zeros in the number recursively.
+    :return:
+    """
+
+    zeros = 0
+    string_num = str(num)
+
+    if _iter < len(string_num):
+
+        if string_num[_iter] == '0':
+            zeros += 1
+
+        zeros += count_zeros(num, _iter + 1)
+
+    return zeros
+
+def compute_power(a: int, b: int) -> int:
+
+    """
+    compute a^b recursively.
+
+    :param a: integer
+    :param b: integer
+    :return: a^b
+    """
+
+    total = 1 * a
+
+    if b == 0:
+
+        return 1
+
+    else:
+
+        total *= compute_power(a, b - 1)
+
+    return total
+
+def check_if_palindrome(word: str, i, j) -> bool:
+
+    """
+    check if string is a palindrome.
+    A palindrome is any string that is spelled the same in both forward and reverse order.
+    Example: racecar spelled backwards is racecar
+
+    :param word: string to check if palindrome
+    :return: true if palindrome, false otherwise
+    """
+
+    if len(word) == 1:
+        return True
+
+    if i != j:
+
+        if word[i] != word[j]:
+            return False
+        else:
+            try:
+                check_if_palindrome(word, i + 1, j - 1)
+            except IndexError:
+                return True
+
+    return True
 
 def generate_set_of_nums(x: int) -> set:
 
@@ -155,7 +293,6 @@ def fibonacci(n_terms: int) -> list:
     return sequence
 
 
-
 if __name__ == '__main__':
 
     unique_nums = generate_set_of_nums(x=50)
@@ -163,3 +300,28 @@ if __name__ == '__main__':
     print(generate_subsets(nums=unique_nums, i=1))
 
     print(fibonacci(n_terms=15))
+
+    num = sum_digits(12345)
+    num2 = sum_digits(1234567890)
+    num3 = sum_digits(234989098712)
+
+    print(num, num2, num3)
+
+    assert count_zeros(100100010) == 6
+    assert count_zeros(123) == 0
+    assert count_zeros(10000000) == 7
+    # technically any number that starts with a zero will be zero (if any number besides 0 python will throw an exception)
+    assert count_zeros(00000) == 1
+
+    print(count_zeros(100100010))
+
+    print(compute_power(10, 3))
+
+    word = 'racecar'
+    word2 = 'orange'
+
+    assert check_if_palindrome('racecar', 0, 6) == True
+    assert check_if_palindrome('orange', 0, 5) == False
+
+    print(check_if_palindrome('racecar', 0, 6))
+    print(check_if_palindrome(word2, 0, len(word2) - 1))
